@@ -24,10 +24,8 @@ designDropdown.addEventListener('change', (e) => {
     if(e.target.value === 'js puns') {
         colorDiv.style.display = '';
         hideOptions(colorDropdownList, 'JS Puns shirt only');
-
-
-
     }
+    else if()
 });
 
 
