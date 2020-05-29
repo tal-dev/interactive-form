@@ -58,25 +58,42 @@ function isValidCVV(cvv) {
     return /^\d{3}$/.test(cvv);
 };
 
+// Function to validate if all input values are valid
 function validateInput() {
-    if(isValidName(nameInput.value) === true && 
-       isValidEmail(emailInput.value) === true &&
-       isValidCCNumber(creditCardInput.value) === true &&
-       isValidZipCode(zipInput.value) === true &&
-       isValidCVV(cvvInput.value) === true) {
-        return true;
-       } 
-       else {
-           return false;
-       }
+
+    if(paymentMethodDropdown.selectedIndex === 1) {
+
+        if(isValidName(nameInput.value) === true && 
+        isValidEmail(emailInput.value) === true &&
+        isValidCCNumber(creditCardInput.value) === true &&
+        isValidZipCode(zipInput.value) === true &&
+        isValidCVV(cvvInput.value) === true) {
+         return true;
+        } 
+        else {
+            return false;
+        }
+    } 
+    else {
+        if(isValidName(nameInput.value) === true && 
+        isValidEmail(emailInput.value) === true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
 };
 
+
+// Hide user info by default
 const userInfo = document.querySelectorAll('.user-info');
 for(let i = 0; i < userInfo.length; i+=1) {
     userInfo[i].style.display = 'none';
 }
 
-
+// Show or Hide validation error
 function showOrHideTip(show, element) {
     // show element when show is true, hide when false
     if (show) {
@@ -85,7 +102,8 @@ function showOrHideTip(show, element) {
       element.style.display = "none";
     }
   }
-  
+
+// Show or Hide validation error
   function createListener(validator) {
     return e => {
       const text = e.target.value;
@@ -96,6 +114,7 @@ function showOrHideTip(show, element) {
     };
   };
 
+  // Listeners for validations
   nameInput.addEventListener("input", createListener(isValidName));
   emailInput.addEventListener("input", createListener(isValidEmail))
   creditCardInput.addEventListener("input", createListener(isValidCCNumber))
@@ -128,8 +147,6 @@ submitButton.addEventListener('click', (e) => {
         if (required(inputs[i]) === false) {
             inputs[i].style.border = "3px solid #ff0000";
             const errorMessage = document.createElement('span');
-            errorMessage.textContent = 'Field is required';
-            basicBlock.appendChild(errorMessage, inputs[i]);
             counter++;
         } else {
             inputs[i].style.border = "";
@@ -138,16 +155,8 @@ submitButton.addEventListener('click', (e) => {
 
     if (counter === 0 && validateInput() === true) {
         window.location.reload();
-    } else {
-        console.log('Input is invalid')
-    }
-
+    };
 });
-
-// Function to check if all required fields are filled
-
-
-
 
 // Function to return true in input field is not empty, and false if input field empty
 function required(input) {
